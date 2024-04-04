@@ -13,7 +13,7 @@ import { middleware } from '#start/kernel'
 import ResetPasswordController from '#controllers/reset_password_controller'
 import PostController from '#controllers/post_controller'
 
-router.on('/').render('pages/home').as('home')
+router.get('/', [PostController, 'index']).as('home')
 
 router.get('/register', [AuthController, 'register']).as('auth.register').use(middleware.guest())
 router.post('/register', [AuthController, 'handleRegsiter']).use(middleware.guest())
@@ -42,3 +42,11 @@ router
 router.delete('/login', [AuthController, 'logout']).as('auth.logout').use(middleware.auth())
 
 router.get('/post/create', [PostController, 'create']).as('post.create').use(middleware.auth())
+
+router.post('/post/create', [PostController, 'store']).use(middleware.auth())
+
+router
+  .get('/post/:slug/:id', [PostController, 'show'])
+  .as('post.show')
+  .where('slug', router.matchers.slug())
+  .where('id', router.matchers.number())

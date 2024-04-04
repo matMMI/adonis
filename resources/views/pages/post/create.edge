@@ -1,4 +1,4 @@
-@let(title = "Publier le contenu")
+@let(title = "Publier du contenu")
 @include('partials/header')
 
 
@@ -6,10 +6,10 @@
 
 <form action="" method="POST" class="w-75 mx-auto p-3 bg-light rounded" enctype="multipart/form-data">
     {{csrfField()}}
-    @!component('components/input', { name: 'title', label: 'Titre' })
+    @!component('components/input', { name: 'title', label: 'Titre', value:old('title') })
     @!component('components/input', { name: 'thumbnail', label: 'Miniature', type: 'file' })
-    @!component('components/input', { name: 'content', label: 'Contenu', type: 'textarea' })
-    <button type="submit" class="btn btn-outline-info mt-2">Inscription</button>
+    @!component('components/input', { name: 'content', label: 'Contenu', type: 'textarea', value:old('content') })
+    <button type="submit" class="btn btn-outline-info mt-2">{{title}}</button>
 </form>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
 <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
