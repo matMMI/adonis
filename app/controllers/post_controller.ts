@@ -16,7 +16,7 @@ export default class PostController {
   constructor(private readonly fileUploaderService: FileUploaderService) {}
   async index({ view, request }: HttpContext) {
     const page = request.input('page', 1)
-    const limit = 2
+    const limit = 5
     const posts = await Post.query()
       .select('id', 'title', 'thumbnail', 'slug', 'user_id')
       .preload('user', (u) => u.select('username'))
